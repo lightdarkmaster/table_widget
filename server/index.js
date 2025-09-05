@@ -1,7 +1,3 @@
-/*
-Copyright (c) 2017, ZOHO CORPORATION
-License: MIT
-*/
 var fs = require('fs');
 var path = require('path');
 var express = require('express');
