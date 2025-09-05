@@ -12,11 +12,25 @@ function getAllMonthsOfYear(year) {
     return monthNames.map((m, i) => `${m} ${year}`);
 }
 
-// Recursive fetch to get all pages of Leads
+// Recursive fetch to get all pages of Leads with filter
 async function fetchAllLeads(page = 1, allData = []) {
-    let resp = await ZOHO.CRM.API.getAllRecords({
+    // Allowed Lead Source values
+    let leadSources = [
+        "Zoho Leads", "Zoho Partner", "Zoho CRM", "Zoho Partners 2024",
+        "Zoho - Sutha", "Zoho - Hemanth", "Zoho - Sen", "Zoho - Audrey",
+        "Zoho - Jacklyn", "Zoho - Adrian", "Zoho Partner Website", "Zoho - Chaitanya"
+    ];
+
+    // Allowed Zoho Services values
+    let zohoServices = ["Desk", "Workplace", "Projects", "Mail"];
+
+    // Build criteria string
+    let criteria = `(Lead_Source:in:${leadSources.join(",")}) and (Zoho_Services:in:${zohoServices.join(",")})`;
+
+    let resp = await ZOHO.CRM.API.searchRecords({
         Entity: "Leads",
-        sort_order: "asc",
+        Type: "criteria",
+        Query: criteria,
         per_page: 200,
         page: page
     });
@@ -122,14 +136,14 @@ function renderTable(monthlyWeeklyCounts) {
 
     // Footer note
     document.querySelector("#footerNote").innerText =
-        `Leads grouped by month and week for ${year}, with totals compared to previous month.`;
+        `Leads grouped by month and week for ${year}, filtered by Lead Source & Zoho Services.`;
 }
 
 // Main
 ZOHO.embeddedApp.on("PageLoad", async function(data) {
     console.log("Page Data:", data);
-    let allLeads = await fetchAllLeads(); // fetch all pages
-    console.log("Total Leads Fetched:", allLeads.length);
+    let allLeads = await fetchAllLeads(); // fetch filtered leads
+    console.log("Total Leads Fetched (Filtered):", allLeads.length);
 
     let monthlyWeeklyCounts = groupLeadsByMonthWeek(allLeads);
     renderTable(monthlyWeeklyCounts);
