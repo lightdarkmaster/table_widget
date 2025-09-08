@@ -1,6 +1,5 @@
 ///For Pramilla Team - Lead Reports...
 
-
 // Utility: format month as "MMM YYYY"
 function formatMonth(dateObj) {
     const monthNames = ["Jan","Feb","Mar","Apr","May","Jun",
