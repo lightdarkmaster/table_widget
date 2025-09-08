@@ -17,6 +17,9 @@ This widget helps track **lead generation performance** in Zoho CRM.
 | Week 4 | % vs W3 | % vs W3 | % vs W3 | ... | ... |
 | Monthly % | % vs Dec | % vs Jan | % vs Feb | % vs Mar | % vs Apr | % vs May | % vs Jun | % vs Jul | % vs Aug | % vs Sep | % vs Oct | % vs Nov |
 
+<div>
+    <img src="app/img/image.png" alt="Table" width="900px">
+</div>
 ## Calculations
 
 - **Weekly % Change Formula:** ((Leads in Current Week - Leads in Previous Week) / Leads in Previous Week) * 100
